@@ -12,7 +12,7 @@ PDF Toolkit is a simple yet powerful Python-based application that allows users 
 
 1. Clone this repository:
    ```sh
-   git clone https://github.com/yourusername/pdf-toolkit.git
+   git clone https://github.com/yourusername/PDF-Toolkit.git
    cd pdf-toolkit
    ```
 
