@@ -11,3 +11,19 @@ def merge_pdfs():
     save_path = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes=[("PDF Files", "*.pdf")])
     if not save_path:
         return
+    
+    merger = PdfMerger()
+    for pdf in files:
+        merger.append(pdf)
+    
+    merger.write(save_path)
+    merger.close()
+    messagebox.showinfo("Success", "PDFs Merged Successfully!")
+
+def split_pdf():
+    file = filedialog.askopenfilename(title="Select PDF to Split", filetypes=[("PDF Files", "*.pdf")])
+    if not file:
+        return
+    output_folder = filedialog.askdirectory(title="Select Output Folder")
+    if not output_folder:
+        return
