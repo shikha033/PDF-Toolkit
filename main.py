@@ -27,3 +27,45 @@ def split_pdf():
     output_folder = filedialog.askdirectory(title="Select Output Folder")
     if not output_folder:
         return
+    
+    reader = PdfReader(file)
+    for i in range(len(reader.pages)):
+        writer = PdfWriter()
+        writer.add_page(reader.pages[i])
+        output_filename = os.path.join(output_folder, f"page_{i + 1}.pdf")
+        with open(output_filename, "wb") as output_file:
+            writer.write(output_file)
+    
+    messagebox.showinfo("Success", "PDF Split Successfully!")
+
+# GUI Setup
+root = tk.Tk()
+root.title("PDF Toolkit - Merge & Split")
+root.geometry("450x400")
+root.configure(bg="#2c3e50")  # Dark background
+
+# Set the app icon
+icon_path = "assets/icon.png"
+try:
+    icon = tk.PhotoImage(file=icon_path)
+    root.iconphoto(True, icon)
+except Exception as e:
+    print("Error loading icon:", e)
+
+# Stylish Header
+header = tk.Label(root, text="📄 PDF TOOLKIT 📄", font=("Arial", 20, "bold"), fg="white", bg="#2c3e50")
+header.pack(pady=15)
+
+# Buttons with improved styling
+btn_style = {"font": ("Arial", 14), "fg": "white", "bg": "#e74c3c", "width": 20, "height": 2, "bd": 3, "relief": "ridge"}
+
+merge_btn = tk.Button(root, text="🔗 Merge PDFs", command=merge_pdfs, **btn_style)
+merge_btn.pack(pady=10)
+
+split_btn = tk.Button(root, text="✂ Split PDF", command=split_pdf, **btn_style)
+split_btn.pack(pady=10)
+
+exit_btn = tk.Button(root, text="❌ Exit", command=root.quit, **btn_style)
+exit_btn.pack(pady=10)
+
+root.mainloop()
